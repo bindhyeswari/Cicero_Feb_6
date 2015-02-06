@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <script>
+
+        function factorial(num) {
+            if (num < 0) throw new Error('Invalid input: -ve number!');
+            else if (num === 1) {
+                return 1
+            } else {
+                return num * factorial(num - 1);
+            }
+        }
+
+        console.log(factorial(5)); // expecting 120
+
+        // Memoized version
+
+        m_factorial.cache = { 1: 1 };
+        function m_factorial(num) {
+            if (num < 0) throw new Error('Invalid input: -ve number!');
+            else {
+                if (!(num in m_factorial.cache)) {
+                    m_factorial.cache[num] = num * m_factorial(num - 1);
+                    console.log('Calculating factorial for ' + num + ' :(');
+                } else {
+                    console.log('Delivering factorial for ' + num + ' from cache! :)');
+                }
+                return m_factorial.cache[num];
+            }
+        }
+
+        console.log(m_factorial(5)); // expecting 120
+        console.log(m_factorial(7));
+
+    </script>
+</head>
+<body>
+
+</body>
+</html>

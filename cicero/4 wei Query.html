@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <script>
+
+
+        $.prototype.html = function (innerHTML) {
+            this.element.innerHTML = innerHTML;
+            return this; // this part is required for chaining
+        };
+
+        $.prototype.addClass = function (className) {
+            this.element.className = className;
+            return this; // this part is required for chaining
+        };
+
+        $.prototype.appendTo = function (parent) {
+            if (parent instanceof $) {
+                parent.element.appendChild(this.element);
+            } else {
+                parent.appendChild(this.element);
+            }
+        };
+
+        function $(str) {
+
+            if (typeof str === 'function') {
+                document.addEventListener('readystatechange', function () {
+                    if (document.readyState === 'interactive') {
+                        str();
+                    }
+                });
+                return;
+            }
+
+            if (this instanceof $) {
+                this.element = document.createElement(str);
+                return this;
+            }
+
+            var regex = new RegExp('<([a-z]+)>');
+            if (regex.test(str)) {
+                // Create a new element
+                return new $(regex.exec(str)[1])
+            } else {
+                // use a query selector
+
+            }
+        }
+
+        $(function () {
+            $('<div>').addClass('mydiv').html('Hello World').appendTo(document.body);
+
+            console.log($('<span>'));
+        });
+
+
+
+    </script>
+</head>
+<body>
+
+</body>
+</html>

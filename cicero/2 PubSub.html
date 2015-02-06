@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <script>
+
+        // Decouple event publishers and subscribers
+
+        function Publisher(name) {
+            this.name = name;
+            this.events = {};
+        }
+
+        Publisher.prototype.addEvent = function (event_name) {
+            if (!(event_name in this.events)) {
+                this.events[event_name] = [];
+            }
+        };
+
+        Publisher.prototype.publish = function (event_name) {
+            this.events[event_name].forEach(function (obj) {
+                console.log('Executing callback for ' + obj.subscriber.name);
+                obj.callback.call(obj.subscriber);
+            });
+        };
+
+        var national_geographic = new Publisher('National Geographic');
+
+        national_geographic.addEvent('ng');
+
+
+        function Subscriber(name) {
+            this.name = name;
+        }
+
+        Subscriber.prototype.subscribe = function (publisher, event, callback) {
+            // callback is a function
+            publisher.events[event].push({
+                subscriber: this,
+                callback: callback
+            });
+        };
+
+        var wei = new Subscriber('Chen Chao Wei');
+        wei.subscribe(national_geographic, 'ng', function () {
+            console.log('Headed right to the stands to buy it! - ' + this.name);
+        });
+
+        console.log(national_geographic);
+        console.log(wei);
+        national_geographic.publish('ng');
+
+
+
+
+    </script>
+</head>
+<body>
+
+</body>
+</html>

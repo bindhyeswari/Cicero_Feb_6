@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <script>
+
+         CarFactory.constructors = {
+             'Audi': function () {
+                 this.company = 'Audi';
+             },
+             'Tesla': function () {
+                 this.company = 'Tesla';
+             },
+             'Maserati': function () {
+                 this.company = 'Maserati';
+             }
+         };
+
+        function CarFactory(company) {
+            return new CarFactory.constructors[company]();
+        }
+
+        var arr_cartypes = ['Audi', 'Tesla', 'Audi', 'Maserati', 'Tesla', 'Tesla'];
+
+        // create an array of cars out of it
+        var arr_cars = arr_cartypes.map(CarFactory);
+
+        console.log(arr_cars);
+
+    </script>
+</head>
+<body>
+
+</body>
+</html>

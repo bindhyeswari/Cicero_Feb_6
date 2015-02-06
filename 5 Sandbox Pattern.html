@@ -4,7 +4,8 @@
     <title>Sandbox Pattern</title>
     <script type="text/javascript">
         // Adding the modules
-        Sandbox.modules = {};
+        Sandbox.modules = {
+        };
         Sandbox.modules.weather = function(lib){
             lib.getWeatherByCity = function(city){
                 // make ajax call to get weather by city
@@ -68,7 +69,7 @@
 
         window.onload = function(){
 
-            Sandbox('weather', 'county' ,function(weather){
+            Sandbox(['weather', 'county'],function(weather){
 
                 weather.getWeatherByCity('sunnyvale');
 

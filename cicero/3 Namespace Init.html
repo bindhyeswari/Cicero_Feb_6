@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <script>
+
+        // Namespace pattern
+        var lib = {
+            init: function (str) {
+                // get all the module names as strings
+                var modules = str.split('.');
+
+                // check if the first module name is the library itself
+                if (modules[0] === 'lib') {
+                    modules.splice(0, 1);
+                }
+
+                // set the variable to the library
+                var parent = this;
+
+                // loop over the modules
+                for (var i = 0, len = modules.length; i < len; i++) {
+                    // check iof the module exists within the parent
+                    if (!( modules[i] in parent )) {
+                        // create the module within the parent if it does not exist
+                        parent[modules[i]] = {};
+                    }
+                    // set the parent to the new module
+                    parent = parent[modules[i]];
+                }
+                return parent;
+            }
+        };
+
+        // Test case 1
+        lib.init('lib.basic.security.cors').checksop = function () {
+            console.log('checking same origin policy ... ');
+        };
+
+        lib.basic.security.cors.checksop();
+        console.log(lib);
+
+    </script>
+</head>
+<body>
+
+</body>
+</html>
